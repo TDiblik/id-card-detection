@@ -1,0 +1,5 @@
+train: training_data_preprocessed/training/images
+val: training_data_preprocessed/validation/images
+
+nc: 1
+names: ["id_card"]

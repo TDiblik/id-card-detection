@@ -1,4 +1,6 @@
 import os
+import glob
+import zipfile
 import cv2
 import shutil
 import numpy as np
@@ -22,6 +24,25 @@ OUTPUT_VALIDATION_IMAGES_DIRECTORY = os.path.join(
 OUTPUT_VALIDATION_LABELS_DIRECTORY = os.path.join(
     OUTPUT_VALIDATION_DIRECTORY, "labels/"
 )
+
+
+def combine_zip_resource_files():
+    if os.path.exists("./resources/"):
+        shutil.rmtree("./resources/")
+
+    output_zip_file = "./resources.zip"
+    if os.path.exists(output_zip_file):
+        os.remove(output_zip_file)
+
+    with open(output_zip_file, "wb") as wfd:
+        for part in sorted(glob.glob("resources_parts/resources.zip.part_*")):
+            with open(part, "rb") as fd:
+                wfd.write(fd.read())
+
+    with zipfile.ZipFile(output_zip_file, "r") as zip_ref:
+        zip_ref.extractall()
+
+    os.remove(output_zip_file)
 
 
 def find_and_convert_id_card_cropper_images(basePath):
@@ -130,6 +151,9 @@ if __name__ == "__main__":
         if os.path.exists(path):
             shutil.rmtree(path)
         os.mkdir(path)
+
+    print("Combining resources zip files...")
+    combine_zip_resource_files()
 
     print("Getting all images...")
     all_images_with_annotations = []

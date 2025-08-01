@@ -1,3 +1,8 @@
 resources.zip
 training_data_preprocessed/
 resources/
+best.*
+best_*
+yolo*.pt
+runs/
+calibration_image_sample_data_20x128x128x3_float32.npy

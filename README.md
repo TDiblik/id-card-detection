@@ -1,5 +1,7 @@
 # ID Card detection
 
+yolov fine-tuned for id cards, naive implementation done in an afternoon, does not work well for KYC, just for my curiousity
+
 ## Prepare
 
 ```sh
